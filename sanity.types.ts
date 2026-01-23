@@ -301,6 +301,7 @@ export type Category = {
   featured?: boolean;
   range?: number;
   description?: string;
+  title?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -435,6 +436,12 @@ export type AllSanitySchemaTypes =
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
+type ArrayOf<T> = Array<
+  T & {
+    _key: string;
+  }
+>;
+
 // Source: sanity\queries\query.ts
 // Variable: BRANDS_QUERY
 // Query: *[_type=='brand'] | order(name asc)
@@ -494,7 +501,7 @@ export type LATEST_BLOG_QUERY_RESULT = Array<{
     title: string | null;
   }> | null;
   publishedAt?: string;
-  isLatest?: boolean;
+  isLatest: true;
   body?: BlockContent;
 }>;
 
@@ -533,7 +540,7 @@ export type DEAL_PRODUCTS_RESULT = Array<{
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "brand";
   };
-  status?: "hot" | "new" | "sale";
+  status: "hot";
   variant?: "appliances" | "gadget" | "others" | "refrigerators";
   isFeatured?: boolean;
 }>;
@@ -584,6 +591,13 @@ export type PRODUCT_BY_SLUG_QUERY_RESULT = {
   isFeatured?: boolean;
 } | null;
 
+// Source: sanity\queries\query.ts
+// Variable: BRAND_QUERY
+// Query: *[_type == "product" && slug.current == $slug]{  "brandName": brand->title  }
+export type BRAND_QUERY_RESULT = Array<{
+  brandName: string | null;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -592,5 +606,6 @@ declare module "@sanity/client" {
     " *[_type == 'blog' && isLatest == true]|order(name asc){\n      ...,\n      blogcategories[]->{\n      title\n    }\n    }": LATEST_BLOG_QUERY_RESULT;
     "*[_type == 'product' && status == 'hot'] | order(name asc){\n    ...,\"categories\": categories[]->title\n  }": DEAL_PRODUCTS_RESULT;
     '*[_type == "product" && slug.current == $slug] | order(name asc) [0]': PRODUCT_BY_SLUG_QUERY_RESULT;
+    '*[_type == "product" && slug.current == $slug]{\n  "brandName": brand->title\n  }': BRAND_QUERY_RESULT;
   }
 }
