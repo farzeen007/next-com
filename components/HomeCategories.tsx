@@ -30,7 +30,16 @@ const HomeCategories = async ({ categories }: { categories: Category[] }) => {
               </Link>
             </div>
             <div className="flex flex-col gap-1.5">
-              <h1 className="font-semibold">{category?.title}</h1>
+              <h1 className="font-semibold">
+                <Link
+                  href={{
+                    pathname: "shop",
+                    query: { category: category?.slug?.current },
+                  }}
+                >
+                  {category?.title}
+                </Link>
+              </h1>
               <div className="flex space-x-1 items-center">
                 <span className="text-base text-shop_dark_green font-semibold">{`(${category?.range})`}</span>
                 <span className="text-sm text-black/90">items Available</span>

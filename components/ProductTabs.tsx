@@ -11,8 +11,6 @@ const TABS = {
 };
 
 const ProductTabs = ({ data }: { data: Product }) => {
-  console.log(data);
-
   const [active, setActive] = useState(TABS.DESCRIPTION);
   const contentTab = () => {
     switch (active) {
@@ -96,7 +94,7 @@ const TabButton = ({
   <button
     className={cn(
       "py-2.5 w-full text-[14px] tracking-wide font-semibold",
-      className
+      className,
     )}
     onClick={onClick}
   >

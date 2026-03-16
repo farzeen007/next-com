@@ -7,7 +7,9 @@ import AddtoWishlist from "./AddtoWishlist";
 import PriceView from "./PriceView";
 import AddtoCartButton from "./AddtoCartButton";
 
-const ProductCard = ({ product }: { product: Product }) => {
+type ProductTypes = Product & { quantity: number };
+
+const ProductCard = ({ product }: { product: ProductTypes }) => {
   const STATUS_MAP: Record<string, React.ReactNode> = {
     hot: (
       <Link
@@ -36,11 +38,10 @@ const ProductCard = ({ product }: { product: Product }) => {
   const renderProductStatus = (status?: string) => {
     return STATUS_MAP[status ?? ""] ?? null;
   };
-  console.log(product);
   return (
-    <div className="text-sm  rounded-md border border-darkColor/10">
+    <div className="text-sm group rounded-md border border-darkColor/10">
       <div className="bg-gray-50 cursor-pointer">
-        <div className="relative group">
+        <div className="relative group z-50">
           <AddtoWishlist product={product} />
         </div>
         <div className="relative">
@@ -80,7 +81,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         <div className="flex text-black/90 gap-2.5 text-[15px]">
           <p>In Stock</p>
           <p
-            className={`${product?.stock > 0 ? "text-shop_dark_green/80" : "text-red-600"}`}
+            className={`${(product?.stock as number) > 0 ? "text-shop_dark_green/80" : "text-red-600"}`}
           >
             {(product?.stock as number) > 0 ? product?.stock : "unavailable"}
           </p>

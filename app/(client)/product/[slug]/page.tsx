@@ -1,13 +1,13 @@
 import AddtoCartButton from "@/components/AddtoCartButton";
+import AddtoWishlist from "@/components/AddtoWishlist";
 import Container from "@/components/Container";
 import ImageView from "@/components/ImageView";
-import PriceFormatter from "@/components/PriceFormatter";
 import PriceView from "@/components/PriceView";
 import ProductCharacteristics from "@/components/ProductCharacteristics ";
 import ProductTabs from "@/components/ProductTabs";
 import { Title } from "@/components/ui/Title";
 import { getSingleProduct } from "@/sanity/queries";
-import { Heart, StarIcon, CornerDownLeft, Truck } from "lucide-react";
+import { StarIcon, CornerDownLeft, Truck } from "lucide-react";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { RxBorderSplit } from "react-icons/rx";
@@ -20,7 +20,6 @@ interface Props {
 const page = async ({ params }: { params: Props }) => {
   const { slug } = await params;
   const data = await getSingleProduct(slug);
-  console.log(data, "dataas");
   return (
     <Container className="my-10 ">
       <div className="flex flex-col md:flex-row space-x-8">
@@ -34,8 +33,13 @@ const page = async ({ params }: { params: Props }) => {
               {data?.description}
             </p>
             <div className="flex gap-0.5 items-center">
-              {[...Array(5)].map(() => (
-                <StarIcon className="w-3.5" fill="#3b9c3c" stroke="0" />
+              {[...Array(5)].map((item) => (
+                <StarIcon
+                  key={item}
+                  className="w-3.5"
+                  fill="#3b9c3c"
+                  stroke="0"
+                />
               ))}
               <span className="text-sm font-semibold">(120)</span>
             </div>
@@ -59,10 +63,8 @@ const page = async ({ params }: { params: Props }) => {
             )}
           </div>
           <div className="flex gap-5 items-center">
-            <AddtoCartButton className="flex-1" />
-            <div className="w-auto border p-1.5 border-shop_light_green/80 rounded-[5px] group cursor-pointer">
-              <Heart className="text-shop_light_green/80 w-5 h-5 group-hover:text-shop_light_green hoverEffect " />
-            </div>
+            <AddtoCartButton product={data} className="flex-1" />
+            <AddtoWishlist product={data} className="relative top-0 " />
           </div>
           <ProductCharacteristics product={data} />
           <div className="flex justify-between py-5 border-b">
@@ -106,7 +108,7 @@ const page = async ({ params }: { params: Props }) => {
           </div>
         </div>
       </div>
-      <ProductTabs data={data}/>
+      <ProductTabs data={data} />
     </Container>
   );
 };

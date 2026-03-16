@@ -10,21 +10,25 @@ const extraData = [
     title: "Free Delivery",
     description: "Free shipping over $100",
     icon: <Truck size={45} />,
+    id: 1,
   },
   {
     title: "Free Return",
     description: "Free shipping over $100",
     icon: <GitCompareArrows size={45} />,
+    id: 2,
   },
   {
     title: "Customer Support",
     description: "Friendly 27/7 customer support",
     icon: <Headset size={45} />,
+    id: 3,
   },
   {
     title: "Money Back guarantee",
     description: "Quality checked by our team",
     icon: <ShieldCheck size={45} />,
+    id: 4,
   },
 ];
 
@@ -46,7 +50,10 @@ const ShopByBrand = async () => {
           return (
             <Link
               key={brand?._id}
-              href={brand?._id}
+              href={{
+                pathname: "/shop",
+                query: { brand: brand?.slug?.current },
+              }}
               className="bg-white p-2 rounded-md hover:shadow-lg shadow-shop_dark_green/20 hoverEffect"
             >
               {brand?.image && (
@@ -64,7 +71,10 @@ const ShopByBrand = async () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-2 place-items-start place-content-center shadow-sm hover:shadow-shop_light_green/20 px-2 py-5 rounded-sm">
         {extraData?.map((item) => (
-          <div className="flex justify-center items-center gap-3 group text-lightColor">
+          <div
+            key={item?.id}
+            className="flex justify-center items-center gap-3 group text-lightColor"
+          >
             <span className="group-hover:text-shop_light_green scale-100 group-hover:scale-90 hoverEffect inline-flex">
               {item?.icon}
             </span>

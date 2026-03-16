@@ -13,14 +13,12 @@ const ProductGrid = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(
-    HomeProductsTabData[0]?.value || ""
+    HomeProductsTabData[0]?.value || "",
   );
   const cacheRef = useRef<Record<string, Product[]>>({});
-
   const query = `*[_type == "product" && variant == $variant] | order(name asc){
   ...,"categories": categories[]->title
 }`;
-
   const params = { variant: selectedCategory.toLowerCase() };
 
   useEffect(() => {

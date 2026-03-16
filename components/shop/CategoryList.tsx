@@ -17,7 +17,7 @@ const CategoryList = ({
 }: Props) => {
   return (
     <div>
-      <Title className="text-base! font-semibold">Product Categories</Title>
+      <Title className="text-base! font-semibold text-center md:text-start">Product Categories</Title>
       <div className="my-2 flex flex-col gap-2 pl-5">
         <RadioGroup
           className="RadioGroupRoot"

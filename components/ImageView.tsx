@@ -50,6 +50,7 @@ const ImageView = ({ images = [], isStock }: Props) => {
       <div className="grid grid-cols-4 gap-5 md:gap-0 md:grid-cols-6">
         {images?.map((image) => (
           <button
+            key={image?._key}
             className={`border rounded-md w-25 h-27 ${active?._key === image?._key && "border-black"}`}
             onClick={() => setActive(image)}
           >

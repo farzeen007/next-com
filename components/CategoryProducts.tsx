@@ -49,7 +49,6 @@ const CategoryProducts = ({ slug, category }: Props) => {
   useEffect(() => {
     fetchProducts();
   }, [router]);
-  console.log(category);
   return (
     <div className="flex flex-col md:flex-row gap-5">
       <div className="flex w-full md:flex-col md:w-40 h-auto">

@@ -1,7 +1,7 @@
-import Container from "./Container";
+import Container from "../Container";
 import FooterMid from "./FooterMid";
 import FooterTop from "./FooterTop";
-import Logo from "./Logo";
+import Logo from "../Logo";
 
 const Footer = () => {
   return (

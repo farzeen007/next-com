@@ -1,11 +1,11 @@
 import React from "react";
-import Logo from "./Logo";
-import { SubText, SubTitle } from "./ui/Title";
-import SocialMedias from "./SocialMedias";
+import Logo from "../Logo";
+import { SubText, SubTitle } from "../ui/Title";
+import SocialMedias from "../SocialMedias";
 import { categoriesData, quickLinksData } from "@/constants/data";
 import Link from "next/link";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 const FooterMid = () => {
   return (

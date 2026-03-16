@@ -19,7 +19,7 @@ interface Props {
 const PriceList = ({ selectedPrice, setSelectedPrice }: Props) => {
   return (
     <div>
-      <Title className="text-base! font-semibold">Price List</Title>
+      <Title className="text-base! font-semibold text-center md:text-start">Price List</Title>
       <div className="py-2 pl-5">
         <RadioGroup
           className="RadioGroupRoot"

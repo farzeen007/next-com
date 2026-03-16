@@ -9,7 +9,6 @@ import {
 
 const ProductCharacteristics = async ({ product }: { product: Product }) => {
   const details = await getProductCharecteristics(product?.slug.current);
-  console.log(await details, "new data");
   return (
     <Accordion type="single" collapsible className="mt-5 pb-2 border-b">
       <AccordionItem value="details">

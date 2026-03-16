@@ -1,6 +1,6 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import React from "react";
-import { SubText, Title } from "./ui/Title";
+import { SubText, Title } from "../ui/Title";
 
 interface ContactItemData {
   title: string;
