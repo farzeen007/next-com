@@ -57,7 +57,6 @@ const CartAddress = () => {
           onValueChange={setSelectedAddress}
         >
           {address.map((item) => {
-            console.log(item, "item");
             return (
               <div className="flex items-center gap-3 " key={item?._id}>
                 <RadioGroupItem value={item?._id} id={item?._id} />

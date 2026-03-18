@@ -13,6 +13,7 @@ import { TooltipProvider } from "../ui/tooltip";
 import CartSideBar from "./CartSideBar";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
+import Loader from "../features/Loader";
 
 const Cart = () => {
   const { items, resetCart } = useCartStore();
@@ -28,16 +29,7 @@ const Cart = () => {
   };
 
   if (!isLoaded) {
-    return (
-      <motion.div
-        className="w-full flex flex-col gap-5 justify-center items-center h-[calc(100vh-75px)]"
-        animate={{ opacity: [0.4, 1, 0.4] }}
-        transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-      >
-        <Loader2 size={40} className="animate-spin" />
-        <h2 className="text-lg">Loading Cart...</h2>
-      </motion.div>
-    );
+    return <Loader title="Loading Cart..." />;
   }
   if (!isSignedIn) return <LoginPrompt />;
 

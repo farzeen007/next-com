@@ -1,5 +1,5 @@
 import Favorites from "@/components/favorites/Favorites";
-import LoginPrompt from "@/components/features/LoginPrompt.tsx";
+import LoginPrompt from "@/components/features/LoginPrompt";
 import { currentUser } from "@clerk/nextjs/server";
 
 const page = async() => {

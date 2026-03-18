@@ -2,7 +2,7 @@ import { Product } from "@/sanity.types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-type ProductTypes = Product & {
+export type ProductTypes = Product & {
   quantity: number;
 };
 

@@ -4,16 +4,40 @@ import { Product } from "@/sanity.types";
 import PriceFormatter from "../PriceFormatter";
 import { Button } from "../ui/button";
 import CartAddress from "./CartAddress";
+import { useUser } from "@clerk/nextjs";
+import { createStripeSession } from "@/actions/createStripeSession";
+import { useState } from "react";
 
 type ProductTypes = Product & {
   quantity: number;
 };
 
 const CartSideBar = ({ product }: { product?: ProductTypes }) => {
-  const { getDiscountedSubTotal, getSubTotal } = useCartStore();
+  const { getDiscountedSubTotal, getSubTotal, items } = useCartStore();
+  const [loading, setLoading] = useState(false);
+  const { user } = useUser();
 
   const discountedSubTotal = getDiscountedSubTotal();
   const subTotal = getSubTotal();
+
+
+  const handleCheckout = async () => {
+    try {
+      const metadata = {
+        orderId: crypto.randomUUID(),
+        customerName: user?.fullName || "",
+        customerEmail: user?.emailAddresses?.[0]?.emailAddress || "",
+        clerkUserId: user?.id || "",
+        clerkStripeId: user?.publicMetadata?.stripeCustomerId
+      }
+      const checkoutUrl = await createStripeSession(metadata, items)
+      if (checkoutUrl) window.location.href = checkoutUrl;
+    } catch (error) {
+      throw new Error("Error while creating stripe")
+    }
+  };
+
+
   return (
     <section className="flex flex-col gap-5 fixed bottom-0 left-1/2 -translate-x-1/2 w-[95%] lg:sticky lg:top-23 lg:translate-x-0 lg:left-auto lg:flex-1 lg:self-start">
       <div className="bg-white w-full px-5 py-5 border rounded-lg">
@@ -47,12 +71,16 @@ const CartSideBar = ({ product }: { product?: ProductTypes }) => {
               />
             </span>
           </p>
-          <Button className="w-full hover:bg-shop_btn_dark_green bg-shop_light_green p-5 lg:p-6 rounded-full text-base font-semibold">
-            Proceed to Checkout
+          <Button
+            className="w-full hover:bg-shop_btn_dark_green bg-shop_light_green p-5 lg:p-6 rounded-full text-base font-semibold"
+            onClick={handleCheckout}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Proceed to Checkout"}
           </Button>
         </div>
       </div>
-      <CartAddress/>
+      <CartAddress />
     </section>
   );
 };
