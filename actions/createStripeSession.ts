@@ -30,7 +30,6 @@ export const createStripeSession = async (metadata: MetaDataProps, items: Produc
             },
         })
     }
-    console.log(customerId, 'customesar')
     try {
         const params: Stripe.Checkout.SessionCreateParams = {
             mode: 'payment',
